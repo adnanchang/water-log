@@ -1,21 +1,57 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { BrowserRouter as Router } from "react-router-dom";
+import NavBar from "./components/NavBar";
+import Login from "./components/Login";
+import Route from "react-router-dom/Route";
+import Register from "./components/Register";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <Router>
+        <div className="App">
+          <NavBar /> <br />
+          <Route
+            path="/"
+            exact
+            render={() => {
+              return (
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <h1>Welcome to Water Log</h1>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <Login />
+                    <Register />
+                  </div>
+                </div>
+              );
+            }}
+          />
+          <Route
+            path="/trips"
+            exact
+            render={() => {
+              return (
+                <div className="container">
+
+                </div>
+              );
+            }}
+          />
+        </div>
+      </Router>
     );
   }
 }
 
-export default App;
+const mapStatetoProps = (state, props) => {
+  return {};
+};
+
+const mapActionsToProps = {};
+
+export default connect(mapStatetoProps, mapActionsToProps)(App);
