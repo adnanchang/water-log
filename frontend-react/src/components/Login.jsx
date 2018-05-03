@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+
 class Login extends Component {
+
+
   render() {
     return (
       <div className="col-md-6">
-        <form>
+        <form >
           <fieldset>
             <legend>Login Here</legend>
             <div className="form-group">
@@ -38,6 +41,7 @@ const mapStatetoProps = (state, props) => {
   return {};
 };
 
-const mapActionsToProps = {};
+const mapActionsToProps = {
+};
 
 export default connect(mapStatetoProps, mapActionsToProps)(Login);

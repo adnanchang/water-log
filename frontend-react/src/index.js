@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
+import userReducer from './reducers/userReducer';
 
 //Importing Redux Libraries
 import thunk from "redux-thunk";
@@ -15,6 +16,7 @@ const allStoreEnhancers = compose(
 );
 
 const allReducers = combineReducers({
+  user: userReducer
 });
 
 const store = createStore(allReducers, allStoreEnhancers);
