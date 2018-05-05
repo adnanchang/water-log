@@ -17,3 +17,20 @@ export function registerUser(formData) {
         }));
     }
 }
+
+export function loginUser(formData) {
+    return dispatch => {
+        return fetch("/user/login", {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(res => res.json())
+        .then(data => dispatch({
+            type: LOGIN_USER,
+            payload: data
+        }));
+    }
+}

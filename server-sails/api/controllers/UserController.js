@@ -5,6 +5,7 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 
+var bcrypt = require("bcrypt");
 module.exports = {
   create: function(req, res, next) {
     // req.params.online = true;
@@ -23,24 +24,44 @@ module.exports = {
     });
   },
 
-  login: function(req, res) {
+  login: function(req, res, next) {
     //Compare the password
-    bcrypt.compare(req.body.password, user.encryptedPassword, function(
-      err,
-      result
-    ) {
-      if (result) {
-        //password is a match
-        return res.json({
-          user: user,
-          token: jwToken.sign(user) //generate the token and send it in the response
-        });
-      } else {
-        //password is not a match
-        return res.forbidden({
-          err: "Email and password combination do not match"
-        });
+    console.log(req.params.all());
+    User.findOne({
+      username: req.param("username")
+    }).exec(function userFound(err, user) {
+      if (err) {
+        console.log(err);
+        return res.send(500, { error: err });
       }
+      if (!user) {
+        console.log("User not found");
+        return res.send(500, { error: "User not found" });
+      }
+
+      bcrypt.compare(req.param("password"), user.encryptedPassword, function(
+        err,
+        result
+      ) {
+        if (result) {
+          //password is a match
+          return res.json({
+            user: user,
+            token: jwToken.sign(user) //generate the token and send it in the response
+          });
+        } else {
+          //password is not a match
+          return res.forbidden({
+            err: "Email and password combination do not match",
+            code: 403
+          });
+        }
+      });
     });
+  },
+
+  check: function(req, res) {
+    //console.log(req.user);
+    return res.json(req.user);
   }
 };

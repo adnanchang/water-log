@@ -1,9 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-import userReducer from './reducers/userReducer';
+import userReducer from "./reducers/userReducer";
 
 //Importing Redux Libraries
 import thunk from "redux-thunk";
@@ -23,7 +24,9 @@ const store = createStore(allReducers, allStoreEnhancers);
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <App />
+    </Router>
   </Provider>,
   document.getElementById("root")
 );
