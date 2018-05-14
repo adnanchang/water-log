@@ -1,47 +1,62 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import {  getUsers } from "../actions/userActions";
+
+class Users extends Component {
 
 
-class Login extends Component {
+    constructor(props) {
+        super(props);
 
+        // this.onEditUser = this.onEditUser.bind(this);
+    }
 
-  render() {
-    return (
-      <div className="col-md-6">
-        <form >
-          <fieldset>
-            <legend>Login Here</legend>
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                name="username"
-                placeholder="Enter Username"
-                className="form-control"
-              />
+    componentDidMount() {
+        this.onGetUsers();
+    }
+
+    onGetHousemates() {
+        this.props.onGetUsers();
+    }
+
+    render() {
+        return (
+            <div className="container">
+              <table className="table">
+                <thead>
+                <tr>
+
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                {this.props.users.map(user => (
+                    <tr className="table-primary" >
+
+                      <td>{user.firstName}</td>
+                      <td>{user.lastName}</td>
+                        <td>{user.email}</td>
+
+                    </tr>
+                ))}
+                </tbody>
+              </table>
             </div>
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter Password"
-                className="form-control"
-              />
-            </div>
-            <input type="submit" value="Sign In" className="btn btn-primary" />
-          </fieldset>
-        </form>
-      </div>
-    );
-  }
+        );
+    }
 }
 
 const mapStatetoProps = (state, props) => {
-  return {};
+    return {
+        users: state.users.users
+    };
 };
 
 const mapActionsToProps = {
+    onGetUsers: getUsers,
+
 };
 
-export default connect(mapStatetoProps, mapActionsToProps)(Login);
+export default connect(mapStatetoProps, mapActionsToProps)(Users);

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Login from "./components/Login";
+import Users from "./components/Users";
 import Route from "react-router-dom/Route";
 import Register from "./components/Register";
 
@@ -27,12 +28,13 @@ class App extends Component {
                     <Login />
                     <Register />
                   </div>
+                    <Users />
                 </div>
               );
             }}
           />
           <Route
-            path="/trips"
+            path="/components/Login"
             exact
             render={() => {
               return (
