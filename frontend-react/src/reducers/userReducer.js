@@ -1,4 +1,4 @@
-import { REGISTER_USER } from "../actions/userActions";
+import { REGISTER_USER, GET_USERS } from "../actions/userActions";
 
 const initialState = () => ({
   isAuthenticated: false,
@@ -10,6 +10,9 @@ export default function userReducerState(
   { type, payload }
 ) {
   switch (type) {
+      case GET_USERS: {
+          return { ...state, users: payload };
+      }
     case REGISTER_USER: {
       console.log(payload);
       return {

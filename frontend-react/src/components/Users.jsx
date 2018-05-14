@@ -55,7 +55,7 @@ const mapStatetoProps = (state, props) => {
 };
 
 const mapActionsToProps = {
-    onGetUsers: getUsers,
+    onGetUsers: getUsers
 
 };
 
