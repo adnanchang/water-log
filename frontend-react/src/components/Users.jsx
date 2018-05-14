@@ -3,16 +3,12 @@ import { connect } from "react-redux";
 import {  getUsers } from "../actions/userActions";
 
 class Users extends Component {
-
-
     constructor(props) {
         super(props);
-
-        // this.onEditUser = this.onEditUser.bind(this);
     }
 
     componentDidMount() {
-        this.onGetUsers();
+        this.props.onGetUsers();
     }
 
     onGetHousemates() {
@@ -25,7 +21,6 @@ class Users extends Component {
               <table className="table">
                 <thead>
                 <tr>
-
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
@@ -50,7 +45,7 @@ class Users extends Component {
 
 const mapStatetoProps = (state, props) => {
     return {
-        users: state.users.users
+        users: state.user.users
     };
 };
 
