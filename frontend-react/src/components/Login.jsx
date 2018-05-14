@@ -1,14 +1,31 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { loginUser } from "../actions/userActions";
 
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const data = {
+      username: this.getUsername.value,
+      password: this.getPassword.value
+    }
+
+    this.props.handleSubmit(data);
+    this.getPassword.value = "";
+    this.getUsername.value = "";
+  }
 
   render() {
     return (
       <div className="col-md-6">
-        <form >
+        <form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend>Login Here</legend>
             <div className="form-group">
@@ -17,6 +34,7 @@ class Login extends Component {
                 type="text"
                 name="username"
                 placeholder="Enter Username"
+                ref={input => (this.getUsername = input)}
                 className="form-control"
               />
             </div>
@@ -26,6 +44,7 @@ class Login extends Component {
                 type="password"
                 name="password"
                 placeholder="Enter Password"
+                ref={input => (this.getPassword = input)}
                 className="form-control"
               />
             </div>
@@ -42,6 +61,7 @@ const mapStatetoProps = (state, props) => {
 };
 
 const mapActionsToProps = {
+  handleSubmit: loginUser
 };
 
 export default connect(mapStatetoProps, mapActionsToProps)(Login);
