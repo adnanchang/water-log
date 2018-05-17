@@ -46,5 +46,6 @@ export function loginUser(formData) {
                 .then(data => dispatch({
                         type: LOGIN_USER,
                         payload: data
+                    // somewhere here...
                 }));
             }}
