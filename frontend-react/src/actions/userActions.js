@@ -11,11 +11,11 @@ export function registerUser(formData) {
             },
             body: JSON.stringify(formData)
         })
-        .then(res => res.json())
-        .then(data => dispatch({
-            type: REGISTER_USER,
-            payload: data
-        }));
+            .then(res => res.json())
+            .then(data => dispatch({
+                type: REGISTER_USER,
+                payload: data
+            }));
     }
 }
 
@@ -34,17 +34,18 @@ export function getUsers() {
 }
 
 export function loginUser(formData) {
-        return dispatch => {
-                return fetch("/user/login", {
-                       method: 'POST',
-                       headers: {
-                            'content-type': 'application/json',
-                            },
-                    body: JSON.stringify(formData)
-                })
-                .then(res => res.json())
-                .then(data => dispatch({
-                        type: LOGIN_USER,
-                        payload: data
-                }));
-            }}
+    return dispatch => {
+        return fetch("/user/login", {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json())
+            .then(data => dispatch({
+                type: LOGIN_USER,
+                payload: data
+            }));
+    }
+}

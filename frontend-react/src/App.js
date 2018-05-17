@@ -13,7 +13,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar /> <br />
-          <Route
+          {!this.props.isAuthenticated ? (<Route
             path="/"
             exact
             render={() => {
@@ -28,18 +28,31 @@ class App extends Component {
                     <Login />
                     <Register />
                   </div>
-                    <Users />
                 </div>
               );
             }}
-          />
-          <Route
+          />) : (<Route
             path="/components/Login"
             exact
             render={() => {
               return (
                 <div className="container">
-
+                  LOL
+                </div>
+              );
+            }}
+          />)}
+          <Route
+            path="/trips"
+            render={() => {
+              return (
+                <div className="container">
+                  <div className="row">
+                    <div className="col-md-12">
+                      <h1>Welcome to Water Log</h1>
+                    </div>
+                  </div>
+                  <Users />
                 </div>
               );
             }}
@@ -51,7 +64,9 @@ class App extends Component {
 }
 
 const mapStatetoProps = (state, props) => {
-  return {};
+  return {
+    isAuthenticated: state.user.isAuthenticated
+  };
 };
 
 const mapActionsToProps = {};
