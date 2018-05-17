@@ -1,4 +1,4 @@
-import { REGISTER_USER, GET_USERS } from "../actions/userActions";
+import { REGISTER_USER, GET_USERS, LOGIN_USER } from "../actions/userActions";
 
 const initialState = () => ({
   isAuthenticated: false,
@@ -20,6 +20,14 @@ export default function userReducerState(
       return {
         ...state
       };
+    }
+    case LOGIN_USER: {
+      console.log(payload)
+      return {
+        ...state,
+        isAuthenticated: true,
+        token: payload.token
+      }
     }
     default: {
       return { ...state };

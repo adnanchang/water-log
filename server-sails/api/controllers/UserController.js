@@ -38,13 +38,14 @@ module.exports = {
         console.log("User not found");
         return res.send(500, { error: "User not found" });
       }
-
+      console.log('here');
       bcrypt.compare(req.param("password"), user.encryptedPassword, function(
         err,
         result
       ) {
         if (result) {
           //password is a match
+          console.log('matched');
           return res.json({
             user: user,
             token: jwToken.sign(user) //generate the token and send it in the response
