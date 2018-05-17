@@ -64,5 +64,9 @@ module.exports = {
   check: function(req, res) {
     //console.log(req.user);
     return res.json(req.user);
+  },
+
+  loggedInUser: function(req, res, next) {
+    return res.json(req.user);
   }
 };

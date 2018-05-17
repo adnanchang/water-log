@@ -2,8 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
+import { logoutUser } from '../actions/userActions';
 
 class NavBar extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onLogoutUser = this.onLogoutUser.bind(this);
+  }
+
+  onLogoutUser() {
+    this.props.onLogoutUser();
+  }
+  
   render() {
     return (
       <div className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -35,6 +46,18 @@ class NavBar extends Component {
             </li>
           </ul>
         </div>
+        {this.props.isAuthenticated ? (
+          <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item active">
+                <input type="button" value="Logout" onClick={this.onLogoutUser} className="btn btn-danger" />
+              </li>
+            </ul>
+          </div>
+        ): (
+          <div></div>
+        )}
+
       </div>
     );
   }
@@ -44,6 +67,8 @@ const mapStatetoProps = (state, props) => {
   return {};
 };
 
-const mapActionsToProps = {};
+const mapActionsToProps = {
+  onLogoutUser: logoutUser
+};
 
 export default connect(mapStatetoProps, mapActionsToProps)(NavBar);

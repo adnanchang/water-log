@@ -6,13 +6,33 @@ import Login from "./components/Login";
 import Users from "./components/Users";
 import Route from "react-router-dom/Route";
 import Register from "./components/Register";
+import { loadUserFromToken } from './actions/userActions';
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+
+    this.onLoadUserFromToken = this.onLoadUserFromToken.bind(this);
+  }
+
+  componentWillMount() {
+    let token = sessionStorage.getItem('token');
+    if (!token || token === ''){
+      
+    } else {
+      this.onLoadUserFromToken(token);
+    }
+  }
+
+  onLoadUserFromToken(token) {
+    this.props.onLoadUserFromToken(token);
+  }
+
   render() {
     return (
       <Router>
         <div className="App">
-          <NavBar /> <br />
+          <NavBar isAuthenticated={this.props.isAuthenticated} /> <br />
           {!this.props.isAuthenticated ? (<Route
             path="/"
             exact
@@ -52,7 +72,6 @@ class App extends Component {
                       <h1>Welcome to Water Log</h1>
                     </div>
                   </div>
-                  <Users />
                 </div>
               );
             }}
@@ -69,6 +88,8 @@ const mapStatetoProps = (state, props) => {
   };
 };
 
-const mapActionsToProps = {};
+const mapActionsToProps = {
+  onLoadUserFromToken: loadUserFromToken
+};
 
 export default connect(mapStatetoProps, mapActionsToProps)(App);
