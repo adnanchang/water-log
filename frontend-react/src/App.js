@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Login from "./components/Login";
-import Users from "./components/Users";
+import AdminLogin from "./components/AdminLogin";
+import AdminRegister from "./components/AdminRegister";
 import Route from "react-router-dom/Route";
 import Register from "./components/Register";
 import { loadUserFromToken } from './actions/userActions';
@@ -75,6 +76,22 @@ class App extends Component {
                 </div>
               );
             }}
+          />
+          <Route
+              path="/admin"
+              render={() => {
+                  return (
+                      <div className="container">
+                        <div className="row">
+                          <div className="col-md-12">
+                            <h1>Admin Water Log</h1>
+                          </div>
+                            <AdminLogin />
+                            <AdminRegister />
+                        </div>
+                      </div>
+                  );
+              }}
           />
         </div>
       </Router>

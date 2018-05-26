@@ -29,7 +29,13 @@ module.exports.policies = {
   UserController: {
     create: true, // We dont need authorization here, allowing public access
     login: true // We dont need authorization here, allowing public access
-  }
+  },
+
+  AdminController: {
+    create: true, // We dont need authorization here, allowing public access
+    login: true // We dont need authorization here, allowing public access
+  },
+
 
   /***************************************************************************
    *                                                                          *
