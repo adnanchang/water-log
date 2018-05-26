@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import userReducer from "./reducers/userReducer";
+import adminReducer from "./reducers/adminReducer";
 
 //Importing Redux Libraries
 import thunk from "redux-thunk";
@@ -17,7 +18,8 @@ const allStoreEnhancers = compose(
 );
 
 const allReducers = combineReducers({
-  user: userReducer
+  user: userReducer,
+  admin: adminReducer
 });
 
 const store = createStore(allReducers, allStoreEnhancers);

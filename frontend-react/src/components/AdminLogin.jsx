@@ -14,7 +14,7 @@ class AdminLogin extends Component {
         e.preventDefault();
         const data = {
             adminUsername: this.getUsername.value,
-            adminEncryptedPassword: this.getPassword.value
+            adminPassword: this.getPassword.value
         }
 
         this.props.handleSubmit(data);

@@ -2,7 +2,7 @@ import { REGISTER_USER, GET_USERS, LOGIN_USER, LOAD_USER_FROM_TOKEN, LOGOUT_USER
 
 const initialState = () => ({
   isAuthenticated: false,
-  users: []
+  user: {}
 });
 
 export default function userReducerState(
@@ -17,7 +17,9 @@ export default function userReducerState(
     case REGISTER_USER: {
       console.log(payload);
       return {
-        ...state
+        ...state,
+        isAuthenticated: true,
+        user: payload.user
       };
     }
     case LOGIN_USER: {

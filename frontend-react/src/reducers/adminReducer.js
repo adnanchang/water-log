@@ -2,7 +2,7 @@ import { REGISTER_ADMIN, GET_ADMINS, LOGIN_ADMIN, LOAD_ADMIN_FROM_TOKEN, LOGOUT_
 
 const initialState = () => ({
     isAuthenticated: false,
-    admins: []
+    admin: {}
 });
 
 export default function adminReducerState(
@@ -18,7 +18,9 @@ export default function adminReducerState(
             console.log(payload);
             console.log("What is");
             return {
-                ...state
+                ...state,
+                isAuthenticated: true,
+                admin: payload.admin
             };
         }
         case LOGIN_ADMIN: {

@@ -47,11 +47,13 @@ export function loginAdmin(formData) {
         })
             .then(res => res.json())
             .then(data => {
-                sessionStorage.setItem("token", data.token);
-                dispatch({
-                    type: LOGIN_ADMIN,
-                    payload: data
-                });
+                if (!data.err) {
+                    sessionStorage.setItem("adminToken", data.token);
+                    dispatch({
+                        type: LOGIN_ADMIN,
+                        payload: data
+                    });
+                }
             });
     };
 }
@@ -72,15 +74,18 @@ export function loadAdminFromToken(token) {
                         type: LOAD_ADMIN_FROM_TOKEN,
                         payload: data
                     });
-                } else {
-                    sessionStorage.removeItem("token");
+                } else { //If the server doesn't verify the user then get rid of token and log user out
+                    sessionStorage.removeItem("adminToken");
+                    dispatch({
+                        type: LOGOUT_ADMIN
+                    });
                 }
             });
     };
 }
 
 export function logoutAdmin() {
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('adminToken');
     return dispatch => {
         dispatch({
             type: LOGOUT_ADMIN

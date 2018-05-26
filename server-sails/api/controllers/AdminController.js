@@ -28,7 +28,7 @@ module.exports = {
     //Compare the password
     console.log(req.params.all());
     Admin.findOne({
-      adminname: req.param("adminname")
+      adminUsername: req.param("adminUsername")
     }).exec(function adminFound(err, admin) {
       if (err) {
         console.log(err);
@@ -38,8 +38,8 @@ module.exports = {
         console.log("Admin not found");
         return res.send(500, { error: "Admin not found" });
       }
-      console.log('here');
-      bcrypt.compare(req.param("password"), admin.encryptedPassword, function(
+      console.log(admin);
+      bcrypt.compare(req.param("adminPassword"), admin.adminEncryptedPassword, function(
         err,
         result
       ) {

@@ -13,10 +13,10 @@ class AdminRegister extends Component {
     event.preventDefault();
     const data = {
       adminFirstName: this.getadminFirstName.value,
-        adminLastName: this.getadminLastName.value,
-        adminEmail: this.getadminEmail.value,
-        adminUsername: this.getadminUsername.value,
-        adminEncryptedPassword: this.getadminPassword.value
+      adminLastName: this.getadminLastName.value,
+      adminEmail: this.getadminEmail.value,
+      adminUsername: this.getadminUsername.value,
+      password: this.getadminPassword.value
     }
     this.getadminFirstName.value = "";
     this.getadminLastName.value = "";

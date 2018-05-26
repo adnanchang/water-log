@@ -6,47 +6,48 @@
  */
 
 module.exports = {
-
   schema: true,
 
   attributes: {
     adminFirstName: {
-      type: 'string'
+      type: "string"
     },
 
     adminLastName: {
-      type: 'string'
+      type: "string"
     },
 
     adminEmail: {
-      type: 'string',
+      type: "string",
       unique: true
     },
 
     adminUsername: {
-      type: 'string',
+      type: "string",
       unique: true
     },
 
     adminEncryptedPassword: {
-      type: 'string'
+      type: "string"
     },
 
-    toJSON: function () {
+    toJSON: function() {
       var obj = this.toObject();
       delete obj.adminEncryptedPassword;
-      return obj
+      return obj;
     }
   },
 
-  beforeCreate: function (values, next) {
-    require('bcrypt').hash(values.password, 10, function passwordEncrypted(err, encryptedPassword) {
+  beforeCreate: function(values, next) {
+    console.log(values);
+    require("bcrypt").hash(values.password, 10, function passwordEncrypted(
+      err,
+      encryptedPassword
+    ) {
       if (err) return next(err);
 
       values.adminEncryptedPassword = encryptedPassword;
       next();
-    })
-
+    });
   }
 };
-

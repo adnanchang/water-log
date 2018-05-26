@@ -47,11 +47,13 @@ export function loginUser(formData) {
     })
       .then(res => res.json())
       .then(data => {
-        sessionStorage.setItem("token", data.token);
-        dispatch({
-          type: LOGIN_USER,
-          payload: data
-        });
+        if (!data.err) {
+          sessionStorage.setItem("userToken", data.token);
+          dispatch({
+            type: LOGIN_USER,
+            payload: data
+          });
+        }
       });
   };
 }
@@ -72,18 +74,21 @@ export function loadUserFromToken(token) {
             type: LOAD_USER_FROM_TOKEN,
             payload: data
           });
-        } else {
-          sessionStorage.removeItem("token");
+        } else { //If the server doesn't verify the user then get rid of token and log user out
+          sessionStorage.removeItem("userToken");
+          dispatch({
+            type: LOGOUT_USER
+          });
         }
       });
   };
 }
 
 export function logoutUser() {
-    sessionStorage.removeItem('token');
-    return dispatch => {
-        dispatch({
-            type: LOGOUT_USER
-        })
-    }
+  sessionStorage.removeItem('userToken');
+  return dispatch => {
+    dispatch({
+      type: LOGOUT_USER
+    })
+  }
 }
