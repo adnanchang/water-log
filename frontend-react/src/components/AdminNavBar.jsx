@@ -19,7 +19,7 @@ class NavBar extends Component {
     return (
       <div className="navbar navbar-expand-lg navbar-dark bg-primary">
         <Link className="navbar-brand" to="/admin">
-          Cool Water Log
+          Cool Water Log - Admin
         </Link>
         <button
           className="navbar-toggler"
@@ -34,16 +34,6 @@ class NavBar extends Component {
         </button>
         <div className="collapse navbar-collapse" id="navbarColor01">
           <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link className="nav-link" to="/admin">
-                Home
-              </Link>
-            </li>
-            <li className="nav-item active">
-              <Link className="nav-link" to="/trips">
-                Trips
-              </Link>
-            </li>
           </ul>
         </div>
         {this.props.isAuthenticated ? (
