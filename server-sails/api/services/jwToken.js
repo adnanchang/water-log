@@ -3,9 +3,10 @@
 var jwt = require('jsonwebtoken');
 
 module.exports = {
-	'sign': function(payload) {
+	'sign': function(payload, type) {
 		return jwt.sign({
-			data: payload
+      data: payload,
+      type: type
 		}, sails.config.secret, {expiresIn: 30});
 	},
 	'verify': function(token, callback) {

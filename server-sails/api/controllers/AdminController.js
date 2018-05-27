@@ -19,7 +19,7 @@ module.exports = {
       // Logging in admin
       return res.json({
         admin: admin,
-        token: jwToken.sign(admin) //generate the token and send it in the response
+        token: jwToken.sign(admin, 'Admin') //generate the token and send it in the response
       });
     });
   },
@@ -32,11 +32,11 @@ module.exports = {
     }).exec(function adminFound(err, admin) {
       if (err) {
         console.log(err);
-        return res.send(500, { error: err });
+        return res.send(500, { err: err });
       }
       if (!admin) {
         console.log("Admin not found");
-        return res.send(500, { error: "Admin not found" });
+        return res.send(500, { err: "Admin not found" });
       }
       console.log(admin);
       bcrypt.compare(req.param("adminPassword"), admin.adminEncryptedPassword, function(
@@ -48,7 +48,7 @@ module.exports = {
           console.log('matched');
           return res.json({
             admin: admin,
-            token: jwToken.sign(admin) //generate the token and send it in the response
+            token: jwToken.sign(admin, 'Admin') //generate the token and send it in the response
           });
         } else {
           //password is not a match
@@ -67,6 +67,7 @@ module.exports = {
   },
 
   loggedInAdmin: function(req, res, next) {
-    return res.json(req.admin);
+    console.log(req.admin);
+    return res.json(req.admin.data);
   }
 };

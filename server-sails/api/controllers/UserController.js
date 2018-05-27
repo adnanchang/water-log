@@ -19,7 +19,7 @@ module.exports = {
       // Logging in user
       return res.json({
         user: user,
-        token: jwToken.sign(user) //generate the token and send it in the response
+        token: jwToken.sign(user, 'User') //generate the token and send it in the response
       });
     });
   },
@@ -32,11 +32,11 @@ module.exports = {
     }).exec(function userFound(err, user) {
       if (err) {
         console.log(err);
-        return res.send(500, { error: err });
+        return res.send(500, { err: err });
       }
       if (!user) {
         console.log("User not found");
-        return res.send(500, { error: "User not found" });
+        return res.send(500, { err: "User not found" });
       }
       console.log('here');
       bcrypt.compare(req.param("password"), user.encryptedPassword, function(
@@ -48,7 +48,7 @@ module.exports = {
           console.log('matched');
           return res.json({
             user: user,
-            token: jwToken.sign(user) //generate the token and send it in the response
+            token: jwToken.sign(user, 'User') //generate the token and send it in the response
           });
         } else {
           //password is not a match
@@ -67,6 +67,7 @@ module.exports = {
   },
 
   loggedInUser: function(req, res, next) {
-    return res.json(req.user);
+    console.log(req.user);
+    return res.json(req.user.data);
   }
 };

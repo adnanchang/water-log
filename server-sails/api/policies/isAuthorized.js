@@ -2,7 +2,6 @@ module.exports = function(req, res, next) {
   var token;
   //Check if authorization header is present
   if (req.headers && req.headers.authorization) {
-    console.log(req.headers);
     //authorization header is present
     var parts = req.headers.authorization.split(" ");
     if (parts.length == 2) {
@@ -17,13 +16,20 @@ module.exports = function(req, res, next) {
     }
   } else {
     //authorization header is not present
+    console.log("No Authorization header was found");
     return res.json(401, { err: "No Authorization header was found" });
   }
   jwToken.verify(token, function(err, decoded) {
     if (err) {
+      console.log("Token is invalid");
       return res.json(401, { err: "Invalid token" });
     }
-    req.user = decoded;
+
+    if (decoded.type == 'Admin') {
+      req.admin = decoded;
+    } else {
+      req.user = decoded;
+    }
     next();
   });
 };
