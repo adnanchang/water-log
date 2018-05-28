@@ -1,8 +1,9 @@
-import { REGISTER_ADMIN, GET_ADMINS, LOGIN_ADMIN, LOAD_ADMIN_FROM_TOKEN, LOGOUT_ADMIN } from "../actions/adminActions";
+import { REGISTER_ADMIN, GET_ADMINS, LOGIN_ADMIN, LOAD_ADMIN_FROM_TOKEN, LOGOUT_ADMIN, SEND_ERROR } from "../actions/adminActions";
 
 const initialState = () => ({
     isAuthenticated: false,
-    admin: {}
+    admin: {},
+    err: null
 });
 
 export default function adminReducerState(
@@ -44,6 +45,12 @@ export default function adminReducerState(
                 ...state,
                 isAuthenticated: false,
                 admin: {}
+            }
+        }
+        case SEND_ERROR: {
+            return {
+                ...state,
+                err: payload
             }
         }
         default: {

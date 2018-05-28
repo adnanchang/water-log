@@ -7,7 +7,7 @@
 
 var bcrypt = require("bcrypt");
 module.exports = {
-  create: function(req, res, next) {
+  create: function (req, res, next) {
     // req.params.online = true;
     User.create(req.params.all(), function userCreated(err, user) {
       if (err) {
@@ -24,7 +24,7 @@ module.exports = {
     });
   },
 
-  login: function(req, res, next) {
+  login: function (req, res, next) {
     //Compare the password
     console.log(req.params.all());
     User.findOne({
@@ -39,7 +39,7 @@ module.exports = {
         return res.send(500, { err: "User not found" });
       }
       console.log('here');
-      bcrypt.compare(req.param("password"), user.encryptedPassword, function(
+      bcrypt.compare(req.param("password"), user.encryptedPassword, function (
         err,
         result
       ) {
@@ -61,13 +61,38 @@ module.exports = {
     });
   },
 
-  check: function(req, res) {
+  check: function (req, res) {
     //console.log(req.user);
     return res.json(req.user);
   },
 
-  loggedInUser: function(req, res, next) {
+  loggedInUser: function (req, res, next) {
     console.log(req.user);
     return res.json(req.user.data);
+  },
+
+  update: function (req, res, next) {
+    console.log(req.params.all());
+    User.update({
+      id: req.param('id')
+    }).set({
+      firstName: req.param('firstName'),
+      lastName: req.param("lastName"),
+      username: req.param("username")
+    }).exec(function (err) {
+      if (err) next(err);
+
+      return res.redirect('/user/returnUser/' + req.param('id'));
+    })
+  },
+
+  returnUser: function (req, res, next) {
+    User.findOne({
+      id: req.param('id')
+    }).exec(function (err, user) {
+      if (err) next(err);
+
+      return res.json(user);
+    })
   }
 };

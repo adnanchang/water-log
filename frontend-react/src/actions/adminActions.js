@@ -3,6 +3,7 @@ export const REGISTER_ADMIN = "REGISTER_ADMIN";
 export const LOAD_ADMIN_FROM_TOKEN = "LOAD_ADMIN_FROM_TOKEN";
 export const LOGOUT_ADMIN = 'LOGOUT_ADMIN';
 export const GET_ADMINS = "GET_ADMIN";
+export const SEND_ERROR = "SEND_ERROR";
 
 export function registerAdmin(formData) {
     return dispatch => {
@@ -52,6 +53,11 @@ export function loginAdmin(formData) {
                     dispatch({
                         type: LOGIN_ADMIN,
                         payload: data
+                    });
+                } else {
+                    dispatch({
+                        type: SEND_ERROR,
+                        payload: data.err
                     });
                 }
             });

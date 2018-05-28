@@ -3,6 +3,9 @@ export const REGISTER_USER = "REGISTER_USER";
 export const LOAD_USER_FROM_TOKEN = "LOAD_USER_FROM_TOKEN";
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_USERS = "GET_USER";
+export const EDIT_USER = "EDIT_USER";
+export const UPDATE_USER = "UPDATE_USER";
+export const SEND_ERROR = "SEND_ERROR";
 
 export function registerUser(formData) {
   return dispatch => {
@@ -91,4 +94,39 @@ export function logoutUser() {
       type: LOGOUT_USER
     })
   }
+}
+
+export function editUser(id) {
+  return {
+    type: EDIT_USER,
+    payload: id
+  };
+}
+
+export function updateUser(formData) {
+  console.log(formData);
+  return dispatch => {
+    return fetch("/user/update", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem('adminToken')
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(res => res.json())
+      .then(user => {
+        if (!user.err) {
+          dispatch({
+            type: UPDATE_USER,
+            payload: user
+          });
+        } else {
+          dispatch({
+            type: SEND_ERROR,
+            payload: user
+          });
+        }
+      });
+  };
 }
