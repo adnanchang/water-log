@@ -36,6 +36,14 @@ module.exports.policies = {
     create: true, // We dont need authorization here, allowing public access
     login: true, // We dont need authorization here, allowing public access
     loggedInAdmin: ["isAuthorized", "ShouldAdminContinue"]
+  },
+
+
+  BoatController: {
+    create: ["isAuthorized", "ShouldAdminContinue"],
+    update: ["isAuthorized", "ShouldAdminContinue"],
+    returnBoat: ["isAuthorized", "ShouldAdminContinue"],
+    delete: ["isAuthorized", "ShouldAdminContinue"]
   }
 
   /***************************************************************************
