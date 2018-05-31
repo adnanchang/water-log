@@ -1,4 +1,4 @@
-import { REGISTER_ADMIN, GET_ADMINS, LOGIN_ADMIN, LOAD_ADMIN_FROM_TOKEN, LOGOUT_ADMIN, SEND_ERROR } from "../actions/adminActions";
+import { REGISTER_ADMIN, GET_ADMINS, LOGIN_ADMIN, LOAD_ADMIN_FROM_TOKEN, LOGOUT_ADMIN, SEND_ERROR, UPDATE_ADMIN } from "../actions/adminActions";
 
 const initialState = () => ({
     isAuthenticated: false,
@@ -37,7 +37,7 @@ export default function adminReducerState(
             return {
                 ...state,
                 isAuthenticated: true,
-                admin: payload.data
+                admin: payload
             }
         }
         case LOGOUT_ADMIN: {

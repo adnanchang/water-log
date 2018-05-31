@@ -15,6 +15,7 @@ import Boats from "./components/Boats";
 import EditBoat from "./components/EditBoat";
 import Users from "./components/Users";
 import EditUser from "./components/EditUser";
+import AdminSettings from "./components/AdminSettings";
 
 class App extends Component {
   constructor(props) {
@@ -72,8 +73,8 @@ class App extends Component {
           ) : this.props.isAdminAuthenticated ? (
             <AdminNavBar isAuthenticated={this.props.isAdminAuthenticated} />
           ) : (
-            <UserNavBar isAuthenticated={this.props.isUserAuthenticated} />
-          )}
+                <UserNavBar isAuthenticated={this.props.isUserAuthenticated} />
+              )}
           <br />
           {/* 
           Only show the login and register component to the user
@@ -97,45 +98,45 @@ class App extends Component {
                       <Register />
                     </div>
                   ) : (
-                    <div className="row">
-                      <ul className="nav nav-tabs">
-                        <li className="nav-item">
-                          <a
-                            className="nav-link active show"
-                            data-toggle="tab"
-                            href="#home"
-                          >
-                            Home
+                      <div className="row">
+                        <ul className="nav nav-tabs">
+                          <li className="nav-item">
+                            <a
+                              className="nav-link active show"
+                              data-toggle="tab"
+                              href="#home"
+                            >
+                              Home
                           </a>
-                        </li>
-                        <li className="nav-item">
-                          <a
-                            className="nav-link"
-                            data-toggle="tab"
-                            href="#boats"
-                          >
-                            Boats
+                          </li>
+                          <li className="nav-item">
+                            <a
+                              className="nav-link"
+                              data-toggle="tab"
+                              href="#boats"
+                            >
+                              Boats
                           </a>
-                        </li>
-                      </ul>
-                      <div id="myTabContent" className="tab-content">
-                        <div className="tab-pane fade active show" id="home">
-                          <p>
-                            Raw denim you probably haven't heard of them jean
-                            shorts Austin. Nesciunt tofu stumptown aliqua, retro
-                            synth master cleanse. Mustache cliche tempor,
-                            williamsburg carles vegan helvetica. Reprehenderit
-                            butcher retro keffiyeh dreamcatcher synth. Cosby
-                            sweater eu banh mi, qui irure terry richardson ex
-                            squid. Aliquip placeat salvia cillum iphone. Seitan
-                            aliquip quis cardigan american apparel, butcher
-                            voluptate nisi qui.
+                          </li>
+                        </ul>
+                        <div id="myTabContent" className="tab-content">
+                          <div className="tab-pane fade active show" id="home">
+                            <p>
+                              Raw denim you probably haven't heard of them jean
+                              shorts Austin. Nesciunt tofu stumptown aliqua, retro
+                              synth master cleanse. Mustache cliche tempor,
+                              williamsburg carles vegan helvetica. Reprehenderit
+                              butcher retro keffiyeh dreamcatcher synth. Cosby
+                              sweater eu banh mi, qui irure terry richardson ex
+                              squid. Aliquip placeat salvia cillum iphone. Seitan
+                              aliquip quis cardigan american apparel, butcher
+                              voluptate nisi qui.
                           </p>
+                          </div>
+                          <div className="tab-pane fade" id="boats" />
                         </div>
-                        <div className="tab-pane fade" id="boats" />
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               );
             }}
@@ -154,122 +155,123 @@ class App extends Component {
                   {/*
                   Show the login/registration form if the admin is not logged in
                   */}
-                  {this.props.isAdminAuthenticated ? (
+                  {!this.props.isAdminAuthenticated ? (
                     <div className="row">
                       <AdminLogin />
                       <AdminRegister />
                     </div>
                   ) : (
-                    <div className="row">
-                      <div className="container">
-                        <ul className="nav nav-tabs">
-                          <li className="nav-item">
-                            <a
-                              className="nav-link active show"
-                              data-toggle="tab"
-                              href="#home"
-                            >
-                              Home
+                      <div className="row">
+                        <div className="container">
+                          <ul className="nav nav-tabs">
+                            <li className="nav-item">
+                              <a
+                                className="nav-link active show"
+                                data-toggle="tab"
+                                href="#home"
+                              >
+                                Home
                             </a>
-                          </li>
-                          <li className="nav-item">
-                            <a
-                              className="nav-link"
-                              data-toggle="tab"
-                              href="#users"
-                            >
-                              Users
+                            </li>
+                            <li className="nav-item">
+                              <a
+                                className="nav-link"
+                                data-toggle="tab"
+                                href="#users"
+                              >
+                                Users
                             </a>
-                          </li>
-                          <li className="nav-item">
-                            <a
-                              className="nav-link"
-                              data-toggle="tab"
-                              href="#boats"
-                            >
-                              Boats
+                            </li>
+                            <li className="nav-item">
+                              <a
+                                className="nav-link"
+                                data-toggle="tab"
+                                href="#boats"
+                              >
+                                Boats
                             </a>
-                          </li>
-                          <li className="nav-item">
-                            <a
-                              className="nav-link"
-                              data-toggle="tab"
-                              href="#settings"
-                            >
-                              Settings
+                            </li>
+                            <li className="nav-item">
+                              <a
+                                className="nav-link"
+                                data-toggle="tab"
+                                href="#settings"
+                              >
+                                Settings
                             </a>
-                          </li>
-                        </ul>
-                        <div id="myTabContent" className="tab-content">
-                          <div className="tab-pane fade active show" id="home">
-                            <p>Some Text.</p>
-                          </div>
-                          <div className="tab-pane fade" id="users">
-                            <br />
-                            <div className="row">
-                              <div className="col-lg-12">
-                                <div className="page-header">
-                                  <h3>All Users</h3>
+                            </li>
+                          </ul>
+                          <div id="myTabContent" className="tab-content">
+                            <div className="tab-pane fade active show" id="home">
+                              <p>Some Text.</p>
+                            </div>
+                            <div className="tab-pane fade" id="users">
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>All Users</h3>
+                                  </div>
+                                </div>
+                                <Users />
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>Forms</h3>
+                                  </div>
+                                </div>
+                                <EditUser />
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
+                            </div>
+                            <div className="tab-pane fade" id="boats">
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>Forms</h3>
+                                  </div>
+                                </div>
+                                <AddBoat />
+                                <EditBoat />
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <h3>All Boats</h3>
+                                </div>
+                                <Boats />
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
+                            </div>
+                            <div className="tab-pane fade" id="settings">
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>Change Data</h3>
+                                  </div>
                                 </div>
                               </div>
-                              <Users />
+                              <AdminSettings  />
+                              <br />
+                              <hr />
+                              <br />
                             </div>
-                            <br />
-                            <hr />
-                            <br />
-                            <div className="row">
-                              <div className="col-lg-12">
-                                <div className="page-header">
-                                  <h3>Forms</h3>
-                                </div>
-                              </div>
-                              <EditUser />
-                            </div>
-                            <br />
-                            <hr />
-                            <br />
-                          </div>
-                          <div className="tab-pane fade" id="boats">
-                            <br />
-                            <div className="row">
-                              <div className="col-lg-12">
-                                <div className="page-header">
-                                  <h3>Forms</h3>
-                                </div>
-                              </div>
-                              <AddBoat />
-                              <EditBoat />
-                            </div>
-                            <br />
-                            <hr />
-                            <br />
-                            <div className="row">
-                              <div className="col-lg-12">
-                                <h3>All Boats</h3>
-                              </div>
-                              <Boats />
-                            </div>
-                            <br />
-                            <hr />
-                            <br />
-                          </div>
-                          <div className="tab-pane fade" id="settings">
-                            <br />
-                            <div className="row">
-                              <div className="col-lg-12">
-                                <div className="page-header">
-                                  <h3>Change Data</h3>
-                                </div>
-                              </div>
-                            </div>
-                            <br />
-                            <hr />
-                            <br />
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
+                    )}
                 </div>
               );
             }}
@@ -283,7 +285,9 @@ class App extends Component {
 const mapStatetoProps = (state, props) => {
   return {
     isUserAuthenticated: state.user.isAuthenticated,
-    isAdminAuthenticated: state.admin.isAuthenticated
+    isAdminAuthenticated: state.admin.isAuthenticated,
+    admin: state.admin.admin,
+    user: state.user.user
   };
 };
 
