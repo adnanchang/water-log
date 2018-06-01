@@ -12,6 +12,7 @@ import thunk from "redux-thunk";
 import { applyMiddleware, compose, combineReducers, createStore } from "redux";
 import { Provider } from "react-redux";
 import boatReducerState from "./reducers/boatReducer";
+import tripReducerState from "./reducers/tripReducer";
 
 const allStoreEnhancers = compose(
   applyMiddleware(thunk),
@@ -21,7 +22,8 @@ const allStoreEnhancers = compose(
 const allReducers = combineReducers({
   user: userReducer,
   admin: adminReducer,
-  boats: boatReducerState
+  boats: boatReducerState,
+  trip: tripReducerState
 });
 
 const store = createStore(allReducers, allStoreEnhancers);

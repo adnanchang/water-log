@@ -32,6 +32,12 @@ module.exports = {
       type: 'string'
     },
 
+    //Connection to TripDetail
+    tripDetails: {
+      collection: 'TripDetail',
+      via: 'user'
+    },
+
     toJSON: function () {
       var obj = this.toObject();
       delete obj.encryptedPassword;

@@ -103,10 +103,10 @@ export function editUser(id) {
   };
 }
 
-export function updateUser(formData) {
+export function updateUser_A(formData) {
   console.log(formData);
   return dispatch => {
-    return fetch("/user/update", {
+    return fetch("/user/updateA", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -128,5 +128,54 @@ export function updateUser(formData) {
           });
         }
       });
+  };
+}
+
+export function updateUser(formData) {
+  return dispatch => {
+      return fetch("/user/update", {
+          method: "POST",
+          headers: {
+              "content-type": "application/json"
+          },
+          body: JSON.stringify(formData)
+      })
+          .then(res => res.json())
+          .then(data => {
+              if (!data.err) {
+                  dispatch(loadUserFromToken(sessionStorage.getItem("userToken")));
+              } else {
+                  dispatch({
+                      type: SEND_ERROR,
+                      payload: data.err
+                  });
+              }
+          });
+  };
+}
+
+export function updatePassword(formData) {
+  return dispatch => {
+      return fetch("/user/updatePassword", {
+          method: "POST",
+          headers: {
+              "content-type": "application/json"
+          },
+          body: JSON.stringify(formData)
+      })
+          .then(res => res.json())
+          .then(data => {
+              if (!data.err) {
+                  sessionStorage.removeItem("userToken");
+                  dispatch({
+                      type: LOGOUT_USER
+                  });
+              } else {
+                  dispatch({
+                      type: SEND_ERROR,
+                      payload: data.err
+                  });
+              }
+          });
   };
 }

@@ -8,7 +8,22 @@
 module.exports = {
 
   attributes: {
+    tripDetails: {
+      collection: 'TripDetail',
+      via: 'trip'
+    },
 
+    Boat: {
+      model: 'Boat'
+    },
+
+    startTime: {
+      type: 'datetime'
+    },
+
+    endTime: {
+      type: 'datetime'
+    }
   }
 };
 

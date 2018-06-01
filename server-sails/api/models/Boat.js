@@ -10,6 +10,11 @@ module.exports = {
   attributes: {
     name: {
       type: 'string'
+    },
+
+    //Connection to Trip
+    trips: {
+      collection: 'Trip'
     }
   }
 };

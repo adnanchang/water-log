@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateUser } from "../actions/userActions";
+import { updateUser_A } from "../actions/userActions";
 
 class EditUser extends Component {
     constructor(props) {
@@ -94,7 +94,7 @@ const mapStatetoProps = (state, props) => {
 };
 
 const mapActionsToProps = {
-      handleSubmit: updateUser
+      handleSubmit: updateUser_A
 };
 
 export default connect(mapStatetoProps, mapActionsToProps)(EditUser);

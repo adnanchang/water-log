@@ -16,6 +16,8 @@ import EditBoat from "./components/EditBoat";
 import Users from "./components/Users";
 import EditUser from "./components/EditUser";
 import AdminSettings from "./components/AdminSettings";
+import AddTrip from "./components/AddTrip";
+import UserSettings from "./components/UserSettings";
 
 class App extends Component {
   constructor(props) {
@@ -92,49 +94,55 @@ class App extends Component {
                       <h1>Welcome to Water Log</h1>
                     </div>
                   </div>
-                  {!this.props.isUserAuthenticated ? (
+                  {this.props.isUserAuthenticated ? (
                     <div className="row">
                       <Login />
                       <Register />
                     </div>
                   ) : (
                       <div className="row">
-                        <ul className="nav nav-tabs">
-                          <li className="nav-item">
-                            <a
-                              className="nav-link active show"
-                              data-toggle="tab"
-                              href="#home"
-                            >
-                              Home
+                        <div className="container">
+                          <ul className="nav nav-tabs">
+                            <li className="nav-item">
+                              <a
+                                className="nav-link active show"
+                                data-toggle="tab"
+                                href="#trips"
+                              >
+                                Trips
                           </a>
-                          </li>
-                          <li className="nav-item">
-                            <a
-                              className="nav-link"
-                              data-toggle="tab"
-                              href="#boats"
-                            >
-                              Boats
+                            </li>
+                            <li className="nav-item">
+                              <a
+                                className="nav-link"
+                                data-toggle="tab"
+                                href="#settings"
+                              >
+                                Settings
                           </a>
-                          </li>
-                        </ul>
-                        <div id="myTabContent" className="tab-content">
-                          <div className="tab-pane fade active show" id="home">
-                            <p>
-                              Raw denim you probably haven't heard of them jean
-                              shorts Austin. Nesciunt tofu stumptown aliqua, retro
-                              synth master cleanse. Mustache cliche tempor,
-                              williamsburg carles vegan helvetica. Reprehenderit
-                              butcher retro keffiyeh dreamcatcher synth. Cosby
-                              sweater eu banh mi, qui irure terry richardson ex
-                              squid. Aliquip placeat salvia cillum iphone. Seitan
-                              aliquip quis cardigan american apparel, butcher
-                              voluptate nisi qui.
-                          </p>
+                            </li>
+                          </ul>
+                          <div id="myTabContent" className="tab-content">
+                            <div className="tab-pane fade active show" id="trips">
+                              <p>Raw denim</p>
+                            </div>
+                            <div className="tab-pane fade" id="settings">
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>Change Data</h3>
+                                  </div>
+                                </div>
+                              </div>
+                              <UserSettings />
+                              <br />
+                              <hr />
+                              <br />
+                            </div>
                           </div>
-                          <div className="tab-pane fade" id="boats" />
                         </div>
+
                       </div>
                     )}
                 </div>
@@ -155,7 +163,7 @@ class App extends Component {
                   {/*
                   Show the login/registration form if the admin is not logged in
                   */}
-                  {!this.props.isAdminAuthenticated ? (
+                  {this.props.isAdminAuthenticated ? (
                     <div className="row">
                       <AdminLogin />
                       <AdminRegister />
@@ -168,9 +176,9 @@ class App extends Component {
                               <a
                                 className="nav-link active show"
                                 data-toggle="tab"
-                                href="#home"
+                                href="#trips"
                               >
-                                Home
+                                Trips
                             </a>
                             </li>
                             <li className="nav-item">
@@ -202,8 +210,29 @@ class App extends Component {
                             </li>
                           </ul>
                           <div id="myTabContent" className="tab-content">
-                            <div className="tab-pane fade active show" id="home">
-                              <p>Some Text.</p>
+                            <div className="tab-pane fade active show" id="trips">
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>Forms</h3>
+                                  </div>
+                                  <AddTrip />
+                                </div>
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>All Trips</h3>
+                                  </div>
+                                </div>
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
                             </div>
                             <div className="tab-pane fade" id="users">
                               <br />
@@ -263,7 +292,7 @@ class App extends Component {
                                   </div>
                                 </div>
                               </div>
-                              <AdminSettings  />
+                              <AdminSettings />
                               <br />
                               <hr />
                               <br />

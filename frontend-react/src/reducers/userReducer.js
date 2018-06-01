@@ -38,7 +38,7 @@ export default function userReducerState(
       return {
         ...state,
         isAuthenticated: true,
-        user: payload.data
+        user: payload
       }
     }
     case LOGOUT_USER: {
