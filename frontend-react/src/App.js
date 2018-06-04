@@ -18,6 +18,9 @@ import EditUser from "./components/EditUser";
 import AdminSettings from "./components/AdminSettings";
 import AddTrip from "./components/AddTrip";
 import UserSettings from "./components/UserSettings";
+import Trips from "./components/Trips";
+import EditTrip from "./components/EditTrip";
+import TripDetails from "./components/TripDetails";
 
 class App extends Component {
   constructor(props) {
@@ -217,8 +220,11 @@ class App extends Component {
                                   <div className="page-header">
                                     <h3>Forms</h3>
                                   </div>
-                                  <AddTrip />
                                 </div>
+                              </div>
+                              <div className="row">
+                                <AddTrip />
+                                <TripDetails />
                               </div>
                               <br />
                               <hr />
@@ -229,6 +235,7 @@ class App extends Component {
                                     <h3>All Trips</h3>
                                   </div>
                                 </div>
+                                <Trips />
                               </div>
                               <br />
                               <hr />

@@ -1,11 +1,12 @@
-import { REGISTER_USER, GET_USERS, LOGIN_USER, LOAD_USER_FROM_TOKEN, LOGOUT_USER, EDIT_USER, UPDATE_USER } from "../actions/userActions";
+import { REGISTER_USER, GET_USERS, LOGIN_USER, LOAD_USER_FROM_TOKEN, LOGOUT_USER, EDIT_USER, UPDATE_USER, SELECT_USER, REMOVE_USER } from "../actions/userActions";
 
 const initialState = () => ({
   users: [],
   isAuthenticated: false,
   user: {},
   userToEdit: {},
-  editing: false
+  editing: false,
+  selectedUsers: []
 });
 
 export default function userReducerState(
@@ -71,6 +72,35 @@ export default function userReducerState(
         users: state.users.concat(payload),
         editing: false
       };
+    }
+    case SELECT_USER: {
+      const user = state.users.find(
+        user => user.id === payload
+      );
+      //User already exists in selected users
+      if (state.selectedUsers.find(
+        myUser => myUser.id == user.id
+      )) {
+        return {
+          ...state
+        }
+      } else {
+        return {
+          ...state,
+          selectedUsers: state.selectedUsers.concat(user)
+        }
+      }
+    }
+    case REMOVE_USER: {
+      var index = state.selectedUsers.findIndex(function(item, i){
+        return item.id === payload
+      });
+      state.selectedUsers.splice(index, 1);
+      const newSelectedUsers = state.selectedUsers.slice();
+      return {
+        ...state,
+        selectedUsers: newSelectedUsers
+      }
     }
     default: {
       return { ...state };

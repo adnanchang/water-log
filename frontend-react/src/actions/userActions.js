@@ -6,6 +6,8 @@ export const GET_USERS = "GET_USER";
 export const EDIT_USER = "EDIT_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const SEND_ERROR = "SEND_ERROR";
+export const SELECT_USER = "SELECT_USER";
+export const REMOVE_USER = "REMOVE_USER";
 
 export function registerUser(formData) {
   return dispatch => {
@@ -178,4 +180,18 @@ export function updatePassword(formData) {
               }
           });
   };
+}
+
+export function selectUser(id) {
+  return {
+    type: SELECT_USER,
+    payload: id
+  };
+}
+
+export function removeUser(id) {
+  return {
+    type: REMOVE_USER,
+    payload: id
+  }
 }

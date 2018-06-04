@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import moment from "moment";
 import { editBoat, getBoats, deleteBoat } from "../actions/boatActions";
 
 class Boats extends Component {
@@ -28,7 +29,7 @@ class Boats extends Component {
               <tr className="table-primary" key={boat.id}>
                 <td>{boat.id}</td>
                 <td>{boat.name}</td>
-                <td>{boat.createdAt}</td>
+                <td>{moment(boat.createdAt).format('LLL')}</td>
                 <td>
                   <form onSubmit={this.onEditBoat}>
                     <input type="hidden" ref={(input) => this.getId = input} value={boat.id} />

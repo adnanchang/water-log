@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createTrip } from "../actions/tripActions";
+import { updateTrip } from "../actions/tripActions";
 import { getUsers, selectUser, removeUser } from "../actions/userActions";
 
-class AddTrip extends Component {
+class EditTrip extends Component {
   constructor(props) {
     super(props);
 
@@ -14,7 +14,10 @@ class AddTrip extends Component {
   }
 
   componentDidMount() {
-    this.onGetUsers();
+    if (this.props.editing) {
+      this.getStartTime.value = this.props.tripToEdit.startTime;
+      this.getEndTime.value = this.props.tripToEdit.endTime;
+    }
   }
 
   handleSubmit(event) {
@@ -22,8 +25,7 @@ class AddTrip extends Component {
     const data = {
       boat: this.getBoat.value,
       startTime: this.getStartTime.value,
-      endTime: this.getEndTime.value,
-      selectedUsers: this.props.selectedUsers
+      endTime: this.getEndTime.value
     };
     this.getBoat.selectedIndex = 0;
     this.getStartTime.value = "";
@@ -61,9 +63,9 @@ class AddTrip extends Component {
         ) : (
             <div />
           )}
-
-        <form onSubmit={this.handleSubmit}>
-          <legend>Add Trip</legend>
+        {this.props.editing ? (
+          <form onSubmit={this.handleSubmit}>
+          <legend>Edit Trip</legend>
           <fieldset className="form-group">
             <div className="form-group">
               <label htmlFor="Boat">Select Boat</label>
@@ -127,6 +129,10 @@ class AddTrip extends Component {
           </fieldset>
           <input type="submit" value="Create" className="btn btn-primary" />
         </form>
+        ) : (
+          <legend>Nothing to Edit</legend>
+        )}
+        
       </div>
     );
   }
@@ -137,15 +143,16 @@ const mapStatetoProps = (state, props) => {
     users: state.user.users,
     boats: state.boats.boats,
     err: state.trip.err,
-    selectedUsers: state.user.selectedUsers
+    selectedUsers: state.user.selectedUsers,
+    editing: state.trip.editing,
+    tripToEdit: state.trip.tripToEdit
   };
 };
 
 const mapActionsToProps = {
-  handleSubmit: createTrip,
-  onGetUsers: getUsers,
+  // handleSubmit: updateTrip,
   onSelectUser: selectUser,
   onRemoveUser: removeUser
 };
 
-export default connect(mapStatetoProps, mapActionsToProps)(AddTrip);
+export default connect(mapStatetoProps, mapActionsToProps)(EditTrip);

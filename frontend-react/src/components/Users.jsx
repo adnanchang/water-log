@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import moment from "moment";
 import { editUser, getUsers, deleteUser } from "../actions/userActions";
 
 class Users extends Component {
@@ -33,7 +34,7 @@ class Users extends Component {
                 <td>{user.lastName}</td>
                 <td>{user.username}</td>
                 <td>{user.email}</td>
-                <td>{user.createdAt}</td>
+                <td>{moment(user.createdAt).format('LLL')}</td>
                 <td>
                   <form onSubmit={this.onEditUser}>
                     <input type="hidden" ref={(input) => this.getId = input} value={user.id} />
