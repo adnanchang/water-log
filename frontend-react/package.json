@@ -19,5 +19,9 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:1337"
+  "proxy": "http://localhost:1337",
+  "devDependencies": {
+    "jest-localstorage-mock": "^2.2.0",
+    "mock-local-storage": "^1.0.5"
+  }
 }
