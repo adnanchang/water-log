@@ -12,7 +12,25 @@ export function getBoats() {
         return fetch("/boat", {
             method: "GET",
             headers: {
-                Authorization: "Bearer " + token
+                Authorization: "Bearer " + sessionStorage.getItem('adminToken')
+            }
+        })
+            .then(res => res.json())
+            .then(boats =>
+                dispatch({
+                    type: GET_BOATS,
+                    payload: boats
+                })
+            );
+    };
+}
+
+export function getBoatsUser() {
+    return dispatch => {
+        return fetch("/boat", {
+            method: "GET",
+            headers: {
+                Authorization: "Bearer " + sessionStorage.getItem('userToken')
             }
         })
             .then(res => res.json())
@@ -31,7 +49,7 @@ export function createBoat(formData) {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                Authorization: "Bearer " + token
+                Authorization: "Bearer " + sessionStorage.getItem('adminToken')
             },
             body: JSON.stringify(formData)
         })
@@ -66,7 +84,7 @@ export function updateBoat(formData) {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                Authorization: "Bearer " + token
+                Authorization: "Bearer " + sessionStorage.getItem('adminToken')
             },
             body: JSON.stringify(formData)
         })
@@ -87,7 +105,7 @@ export function deleteBoat(formData) {
             method: "POST",
             headers: {
                 "content-type": "application/json",
-                Authorization: "Bearer " + token
+                Authorization: "Bearer " + sessionStorage.getItem('adminToken')
             }
         })
             .then(res => res.ok)

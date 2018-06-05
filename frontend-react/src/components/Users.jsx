@@ -16,6 +16,17 @@ class Users extends Component {
   render() {
     return (
       <div className="container">
+        {this.props.err != null ? (
+          <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">
+              &times;
+            </button>
+            <strong>Oh snap! </strong>
+            {this.props.err}
+          </div>
+        ) : (
+            <div />
+          )}
         <table className="table">
           <thead>
             <tr>
@@ -49,7 +60,7 @@ class Users extends Component {
                       type="button"
                       value="Delete"
                       className="btn btn-danger"
-                      onClick={() => this.props.onDeleteHouseMate(user.id)}
+                      onClick={() => this.props.onDeleteUser(user.id)}
                     />
                   </form>
                 </td>
@@ -64,14 +75,15 @@ class Users extends Component {
 
 const mapStatetoProps = (state, props) => {
   return {
-    users: state.user.users
+    users: state.user.users,
+    err: state.user.err
   };
 };
 
 const mapActionsToProps = {
   onGetUsers: getUsers,
-  onEditUser: editUser
-//   onDeleteHouseMate: deleteUser
+  onEditUser: editUser,
+  onDeleteUser: deleteUser
 };
 
 export default connect(mapStatetoProps, mapActionsToProps)(Users);

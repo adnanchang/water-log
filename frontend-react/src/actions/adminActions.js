@@ -106,7 +106,8 @@ export function updateAdmin(formData) {
         return fetch("/admin/update", {
             method: "POST",
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
+                Authorization: "Bearer " + sessionStorage.getItem('adminToken')
             },
             body: JSON.stringify(formData)
         })
@@ -129,7 +130,8 @@ export function updatePassword(formData) {
         return fetch("/admin/updatePassword", {
             method: "POST",
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
+                Authorization: "Bearer " + sessionStorage.getItem('adminToken')
             },
             body: JSON.stringify(formData)
         })

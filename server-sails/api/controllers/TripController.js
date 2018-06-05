@@ -39,7 +39,7 @@ module.exports = {
                     });
                 }
 
-                return res.json(trip);
+                return res.redirect('/trip');
             });
 
         });
@@ -53,6 +53,28 @@ module.exports = {
 
             return res.send(200);
         });
+    },
+
+    userTrips: function(req, res, next) {
+        Trip.find({}).populate('tripDetails').exec(function(err, trips) {
+            if (err) next(err);
+
+            //filter out the trips
+            var tripsToReturn = [];
+            trips.forEach(trip => {
+                console.log(req.user.data.id);
+                const detail = trip.tripDetails.find(
+                    detail => detail.user === req.user.data.id
+                );
+
+                if (detail) {
+                    console.log('detail found');
+                    tripsToReturn.push(trip);
+                }
+            });
+
+            return res.json(tripsToReturn);
+        })
     }
 };
 

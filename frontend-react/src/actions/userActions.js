@@ -5,6 +5,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_USERS = "GET_USER";
 export const EDIT_USER = "EDIT_USER";
 export const UPDATE_USER = "UPDATE_USER";
+export const DELETE_USER = "DELETE_USER";
 export const SEND_ERROR = "SEND_ERROR";
 export const SELECT_USER = "SELECT_USER";
 export const REMOVE_USER = "REMOVE_USER";
@@ -30,7 +31,28 @@ export function registerUser(formData) {
 
 export function getUsers() {
   return dispatch => {
-    return fetch("/user")
+    return fetch("/user", {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem('adminToken')
+      }
+    })
+      .then(res => res.json())
+      .then(users =>
+        dispatch({
+          type: GET_USERS,
+          payload: users
+        })
+      );
+  };
+}
+
+export function getUsers_Users() {
+  return dispatch => {
+    return fetch("/user", {
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem('userToken')
+      }
+    })
       .then(res => res.json())
       .then(users =>
         dispatch({
@@ -135,50 +157,51 @@ export function updateUser_A(formData) {
 
 export function updateUser(formData) {
   return dispatch => {
-      return fetch("/user/update", {
-          method: "POST",
-          headers: {
-              "content-type": "application/json"
-          },
-          body: JSON.stringify(formData)
-      })
-          .then(res => res.json())
-          .then(data => {
-              if (!data.err) {
-                  dispatch(loadUserFromToken(sessionStorage.getItem("userToken")));
-              } else {
-                  dispatch({
-                      type: SEND_ERROR,
-                      payload: data.err
-                  });
-              }
+    return fetch("/user/update", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem('userToken')
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.err) {
+          dispatch(loadUserFromToken(sessionStorage.getItem("userToken")));
+        } else {
+          dispatch({
+            type: SEND_ERROR,
+            payload: data.err
           });
+        }
+      });
   };
 }
 
 export function updatePassword(formData) {
   return dispatch => {
-      return fetch("/user/updatePassword", {
-          method: "POST",
-          headers: {
-              "content-type": "application/json"
-          },
-          body: JSON.stringify(formData)
-      })
-          .then(res => res.json())
-          .then(data => {
-              if (!data.err) {
-                  sessionStorage.removeItem("userToken");
-                  dispatch({
-                      type: LOGOUT_USER
-                  });
-              } else {
-                  dispatch({
-                      type: SEND_ERROR,
-                      payload: data.err
-                  });
-              }
+    return fetch("/user/updatePassword", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (!data.err) {
+          sessionStorage.removeItem("userToken");
+          dispatch({
+            type: LOGOUT_USER
           });
+        } else {
+          dispatch({
+            type: SEND_ERROR,
+            payload: data.err
+          });
+        }
+      });
   };
 }
 
@@ -194,4 +217,31 @@ export function removeUser(id) {
     type: REMOVE_USER,
     payload: id
   }
+}
+
+export function deleteUser(id) {
+  return dispatch => {
+    return fetch("/user/delete/" + id, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + sessionStorage.getItem('adminToken')
+      }
+    })
+      .then(res => res.ok)
+      .then(data => {
+        if (!data.err) {
+          dispatch({
+            type: DELETE_USER,
+            payload: id
+          })
+        } else {
+          dispatch({
+            type: SEND_ERROR,
+            payload: data.err
+          });
+        }
+      }
+
+      );
+  };
 }

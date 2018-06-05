@@ -10,6 +10,7 @@ module.exports = function(req, res, next) {
 
       if (/^Bearer$/i.test(scheme)) {
         token = credentials;
+        console.log(token);
       }
     } else {
       return res.json(401, { err: "Format is Authorization: Bearer [token]" });

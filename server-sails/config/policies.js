@@ -25,25 +25,15 @@ module.exports.policies = {
    ***************************************************************************/
 
   // '*': true,
-  // "*": ["isAuthorized"], // Everything resctricted here
+  "*": ["isAuthorized"], // Everything resctricted here
   UserController: {
     create: true, // We dont need authorization here, allowing public access
     login: true, // We dont need authorization here, allowing public access
-    loggedInUser: ["isAuthorized", "shouldUserContinue"]
   },
 
   AdminController: {
     create: true, // We dont need authorization here, allowing public access
     login: true, // We dont need authorization here, allowing public access
-    loggedInAdmin: ["isAuthorized", "ShouldAdminContinue"]
-  },
-
-
-  BoatController: {
-    create: ["isAuthorized", "ShouldAdminContinue"],
-    update: ["isAuthorized", "ShouldAdminContinue"],
-    returnBoat: ["isAuthorized", "ShouldAdminContinue"],
-    delete: ["isAuthorized", "ShouldAdminContinue"]
   }
 
   /***************************************************************************

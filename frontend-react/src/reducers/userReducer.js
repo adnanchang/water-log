@@ -1,4 +1,4 @@
-import { REGISTER_USER, GET_USERS, LOGIN_USER, LOAD_USER_FROM_TOKEN, LOGOUT_USER, EDIT_USER, UPDATE_USER, SELECT_USER, REMOVE_USER } from "../actions/userActions";
+import { REGISTER_USER, GET_USERS, LOGIN_USER, LOAD_USER_FROM_TOKEN, LOGOUT_USER, EDIT_USER, UPDATE_USER, SELECT_USER, REMOVE_USER, DELETE_USER } from "../actions/userActions";
 
 const initialState = () => ({
   users: [],
@@ -100,6 +100,18 @@ export default function userReducerState(
       return {
         ...state,
         selectedUsers: newSelectedUsers
+      }
+    }
+    case DELETE_USER: {
+      var index = state.users.findIndex(function(item, i){
+        return item.id === payload
+      });
+      state.users.splice(index, 1);
+      const newUsers = state.users.slice();
+      
+      return {
+        ...state,
+        users: newUsers
       }
     }
     default: {

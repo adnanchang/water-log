@@ -1,4 +1,4 @@
-import { CREATE_TRIP, SEND_ERROR, GET_TRIPS, EDIT_TRIP, SEND_DETAILS } from "../actions/tripActions";
+import { CREATE_TRIP, SEND_ERROR, GET_TRIPS, EDIT_TRIP, SEND_DETAILS, SIGN_IN, SIGN_OUT } from "../actions/tripActions";
 
 const initialState = () => ({
     trips: [],
@@ -17,7 +17,7 @@ export default function tripReducerState(
         case CREATE_TRIP: {
             return {
                 ...state,
-                trips: state.trips.concat(payload)
+                trips: payload
             }
         }
         case GET_TRIPS: {
@@ -50,6 +50,18 @@ export default function tripReducerState(
                 ...state,
                 tripDetails: trip.tripDetails,
                 viewDetails: true
+            }
+        }
+        case SIGN_IN: {
+            return {
+                ...state,
+                trips: payload
+            }
+        }
+        case SIGN_OUT: {
+            return {
+                ...state,
+                trips: payload
             }
         }
         default: {

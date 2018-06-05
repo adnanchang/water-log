@@ -140,5 +140,19 @@ module.exports = {
           });
       }
     );
+  },
+
+  delete: function(req, res, next) {
+    User.destroy({
+      id: req.param('id')
+    }).exec(function(err) {
+      if (err) {
+        return res.send(500, {
+          err: err
+        });
+      }
+
+      return res.send(200);
+    })
   }
 };

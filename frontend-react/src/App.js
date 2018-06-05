@@ -21,6 +21,8 @@ import UserSettings from "./components/UserSettings";
 import Trips from "./components/Trips";
 import EditTrip from "./components/EditTrip";
 import TripDetails from "./components/TripDetails";
+import Trips_U from "./components/Trips_U";
+import AddTrip_U from "./components/AddTrip_U";
 
 class App extends Component {
   constructor(props) {
@@ -97,7 +99,7 @@ class App extends Component {
                       <h1>Welcome to Water Log</h1>
                     </div>
                   </div>
-                  {this.props.isUserAuthenticated ? (
+                  {!this.props.isUserAuthenticated ? (
                     <div className="row">
                       <Login />
                       <Register />
@@ -127,7 +129,32 @@ class App extends Component {
                           </ul>
                           <div id="myTabContent" className="tab-content">
                             <div className="tab-pane fade active show" id="trips">
-                              <p>Raw denim</p>
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>Forms</h3>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="row">
+                                <AddTrip_U />
+                                <TripDetails />
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
+                              <div className="row">
+                                <div className="col-lg-12">
+                                  <div className="page-header">
+                                    <h3>All Trips</h3>
+                                  </div>
+                                </div>
+                                <Trips_U />
+                              </div>
+                              <br />
+                              <hr />
+                              <br />
                             </div>
                             <div className="tab-pane fade" id="settings">
                               <br />
@@ -145,7 +172,6 @@ class App extends Component {
                             </div>
                           </div>
                         </div>
-
                       </div>
                     )}
                 </div>
@@ -166,7 +192,7 @@ class App extends Component {
                   {/*
                   Show the login/registration form if the admin is not logged in
                   */}
-                  {this.props.isAdminAuthenticated ? (
+                  {!this.props.isAdminAuthenticated ? (
                     <div className="row">
                       <AdminLogin />
                       <AdminRegister />
