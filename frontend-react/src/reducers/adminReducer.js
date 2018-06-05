@@ -11,10 +11,6 @@ export default function adminReducerState(
     { type, payload }
 ) {
     switch (type) {
-        case GET_ADMINS: {
-            console.log(payload);
-            return { ...state, admins: payload };
-        }
         case REGISTER_ADMIN: {
             console.log(payload);
             console.log("What is");

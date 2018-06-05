@@ -25,19 +25,6 @@ export function registerAdmin(formData) {
     };
 }
 
-export function getAdmin() {
-    return dispatch => {
-        return fetch("/admin")
-            .then(res => res.json())
-            .then(admins =>
-                dispatch({
-                    type: GET_ADMINS,
-                    payload: admins
-                })
-            );
-    };
-}
-
 export function loginAdmin(formData) {
     return dispatch => {
         return fetch("/admin/login", {
