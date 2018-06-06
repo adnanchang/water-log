@@ -1,6 +1,6 @@
 import userReducer from "../reducers/userReducer";
 
-const users = [
+var users = [
     {
         id: "1",
         firstName: "First Name 1",
@@ -101,4 +101,54 @@ test("should log out user", () => {
     });
 });
 
+test("should load user from User token", () => {
 
+    const action = {
+        type: "LOAD_USER_FROM_TOKEN",
+        payload: users[1] //assuming this user is online 
+    };
+    const state = userReducer(initialState, action);
+    //The updated user will be in the bottom of the array
+    expect(state).toEqual({
+        ...state,
+        isAuthenticated: true,
+        user: users[1]
+    });
+});
+
+
+test("should select a User when adding a trip", () => {
+    initialState.users = users;
+    const action = {
+        type: "SELECT_USER",
+        payload: users[1].id
+    };
+    const selectedUsers = [
+        users[1]
+    ]
+    const state = userReducer(initialState, action);
+    expect(state).toEqual({
+        ...state,
+        selectedUsers: selectedUsers
+    });
+});
+
+test("should remove a User when adding a trip", () => {
+    initialState.selectedUsers = [
+        users[0],
+        users[1]
+    ];
+    const action = {
+        type: "REMOVE_USER",
+        payload: users[1].id
+    };
+    console.log(action);
+    const selectedUsers = [
+        users[0]
+    ]
+    const state = userReducer(initialState, action);
+    expect(state).toEqual({
+        ...state,
+        selectedUsers: selectedUsers
+    });
+});
