@@ -31,20 +31,20 @@ const trips = [
         tripDetails: [
             {
                 trip: 1,
-                user: 1,
+                user: users[0],
                 signedInAt: "2018-06-04T15:43:45.278Z",
                 signedOutAt: null,
                 id: 1
             },
             {
                 trip: 1,
-                user: 2,
+                user: users[1],
                 signedInAt: "2018-06-04T15:10:02.127Z",
                 signedOutAt: "2018-06-04T15:27:22.325Z",
                 id: 2
             }
         ],
-        boat: 1,
+        boat: boats[0],
         startTime: "2018-12-31T23:59:00.000Z",
         endTime: "2018-12-31T12:59:00.000Z",
         id: 1
@@ -53,20 +53,20 @@ const trips = [
         tripDetails: [
             {
                 trip: 2,
-                user: 1,
+                user: users[0],
                 signedInAt: null,
                 signedOutAt: null,
                 id: 3
             },
             {
                 trip: 2,
-                user: 2,
+                user: users[1],
                 signedInAt: "2018-06-04T15:10:02.127Z",
                 signedOutAt: "2018-06-04T15:27:22.325Z",
                 id: 4
             }
         ],
-        boat: 1,
+        boat: boats[0],
         startTime: "2018-12-31T23:59:00.000Z",
         endTime: "2018-12-31T12:59:00.000Z",
         id: 2

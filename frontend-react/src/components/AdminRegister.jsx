@@ -17,7 +17,7 @@ class AdminRegister extends Component {
       adminEmail: this.getadminEmail.value,
       adminUsername: this.getadminUsername.value,
       password: this.getadminPassword.value
-    }
+    };
     this.getadminFirstName.value = "";
     this.getadminLastName.value = "";
     this.getadminEmail.value = "";
@@ -29,6 +29,17 @@ class AdminRegister extends Component {
   render() {
     return (
       <div className="col-md-6">
+        {this.props.err != null ? (
+          <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">
+              &times;
+            </button>
+            <strong>Oh snap! </strong>
+            {this.props.err}
+          </div>
+        ) : (
+            <div />
+          )}
         <form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend>Register Here</legend>
@@ -91,11 +102,16 @@ class AdminRegister extends Component {
 }
 
 const mapStatetoProps = (state, props) => {
-  return {};
+  return {
+    err: state.admin.err
+  };
 };
 
 const mapActionsToProps = {
   handleSubmit: registerAdmin
 };
 
-export default connect(mapStatetoProps, mapActionsToProps)(AdminRegister);
+export default connect(
+  mapStatetoProps,
+  mapActionsToProps
+)(AdminRegister);

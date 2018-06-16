@@ -20,12 +20,15 @@ export function registerUser(formData) {
       body: JSON.stringify(formData)
     })
       .then(res => res.json())
-      .then(data =>
-        dispatch({
-          type: REGISTER_USER,
-          payload: data
-        })
-      );
+      .then(data => {
+        if (!data.err) {
+          sessionStorage.setItem("userToken", data.token);
+          dispatch({
+            type: REGISTER_USER,
+            payload: data
+          });
+        }
+      });
   };
 }
 

@@ -16,12 +16,20 @@ export function registerAdmin(formData) {
             body: JSON.stringify(formData)
         })
             .then(res => res.json())
-            .then(data =>
-                dispatch({
-                    type: REGISTER_ADMIN,
-                    payload: data
-                })
-            );
+            .then(data => {
+                if (!data.err) {
+                    sessionStorage.setItem("adminToken", data.token);
+                    dispatch({
+                        type: REGISTER_ADMIN,
+                        payload: data
+                    });
+                } else {
+                    dispatch({
+                        type: SEND_ERROR,
+                        payload: data.err
+                    });
+                }
+            });
     };
 }
 
