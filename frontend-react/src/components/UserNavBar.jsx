@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { Link } from "react-router-dom";
-import { logoutUser } from '../actions/userActions';
+import { logoutUser } from "../actions/userActions";
 
 class NavBar extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class NavBar extends Component {
   onLogoutUser() {
     this.props.onLogoutUser();
   }
-  
+
   render() {
     return (
       <div className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -33,26 +33,34 @@ class NavBar extends Component {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarColor01">
-          <ul className="navbar-nav mr-auto">
-            <li className="nav-item active">
-              <Link className="nav-link" to="/admin">
-                Secret Link
-              </Link>
-            </li>
-          </ul>
+          {this.props.isAuthenticated ? (
+            <div />
+          ) : (
+              <ul className="navbar-nav mr-auto">
+                <li className="nav-item active">
+                  <Link className="nav-link" to="/admin">
+                    Secret Link
+                </Link>
+                </li>
+              </ul>
+            )}
         </div>
         {this.props.isAuthenticated ? (
           <div className="navbar-collapse collapse w-100 order-3 dual-collapse2">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
-                <input type="button" value="Logout" onClick={this.onLogoutUser} className="btn btn-danger" />
+                <input
+                  type="button"
+                  value="Logout"
+                  onClick={this.onLogoutUser}
+                  className="btn btn-danger"
+                />
               </li>
             </ul>
           </div>
-        ): (
-          <div></div>
-        )}
-
+        ) : (
+            <div />
+          )}
       </div>
     );
   }
@@ -66,4 +74,7 @@ const mapActionsToProps = {
   onLogoutUser: logoutUser
 };
 
-export default connect(mapStatetoProps, mapActionsToProps)(NavBar);
+export default connect(
+  mapStatetoProps,
+  mapActionsToProps
+)(NavBar);

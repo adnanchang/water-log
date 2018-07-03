@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
 import { getBoats } from "../actions/boatActions";
-import { editTrip, getTrips, deleteTrip, viewDetails } from "../actions/tripActions";
+import { editTrip, getTrips, cancelTrip, viewDetails } from "../actions/tripActions";
 
 class Trips extends Component {
   
@@ -41,22 +41,6 @@ class Trips extends Component {
                       className="btn btn-success"
                       onClick={() => this.props.onViewDetails(trip.id)}
                     />
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input
-                      type="button"
-                      value="Edit"
-                      className="btn btn-primary"
-                      disabled="true"
-                      onClick={() => this.props.onViewDetails(trip.id)}
-                    />
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <input
-                      type="button"
-                      value="Delete"
-                      className="btn btn-danger"
-                      disabled="true"
-                      onClick={() => this.props.onDeleteTrip(trip.id)}
-                    />
                   </form>
                 </td>
               </tr>
@@ -78,8 +62,7 @@ const mapStatetoProps = (state, props) => {
 const mapActionsToProps = {
   onGetBoats: getBoats,
   onGetTrips: getTrips,
-  onViewDetails: viewDetails,
-  onDeleteHouseMate: deleteTrip
+  onViewDetails: viewDetails
 };
 
 export default connect(mapStatetoProps, mapActionsToProps)(Trips);

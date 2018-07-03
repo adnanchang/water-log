@@ -76,7 +76,7 @@ class Trips_U extends Component {
                     />
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     {this.isUserDoneWithTrip(trip) ? (
-                      <input type="button" value="Trip Over" className="btn btn-info"/>
+                      <input type="button" disabled="true" value="Trip Over" className="btn btn-info"/>
                     ) : [
                         (!this.isUserSignedIn(trip) ? (
                           <input

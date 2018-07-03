@@ -187,7 +187,8 @@ export function updatePassword(formData) {
     return fetch("/user/updatePassword", {
       method: "POST",
       headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        Authorization: "Bearer " + sessionStorage.getItem('userToken')
       },
       body: JSON.stringify(formData)
     })
