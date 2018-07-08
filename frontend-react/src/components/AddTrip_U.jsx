@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createTripUser } from "../actions/tripActions";
+import { createTripUser, tripError } from "../actions/tripActions";
 import { getUsers_Users, selectUser, removeUser } from "../actions/userActions";
 import { getBoatsUser } from "../actions/boatActions";
 
@@ -28,24 +28,29 @@ class AddTrip_U extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const data = {
-      boat: this.getBoat.value,
-      startTime: this.getStartTime.value,
-      endTime: this.getEndTime.value,
-      selectedUsers: this.props.selectedUsers
-    };
-    this.getBoat.selectedIndex = 0;
-    this.getStartTime.value = "";
-    this.getEndTime.value = "";
-    this.getUsers.selectedIndex = 0;
-    this.props.handleSubmit(data);
+
+    if (Date.parse(this.getStartTime.value) < Date.parse(this.getEndTime.value)) {
+      const data = {
+        boat: this.getBoat.value,
+        startTime: this.getStartTime.value,
+        endTime: this.getEndTime.value,
+        selectedUsers: this.props.selectedUsers
+      };
+      this.getBoat.selectedIndex = 0;
+      this.getStartTime.value = "";
+      this.getEndTime.value = "";
+      this.getUsers.selectedIndex = 0;
+      this.props.handleSubmit(data);
+    }
+    else
+      this.props.onTripError();
   }
 
   onGetUsers() {
     this.props.onGetUsers();
   }
 
-  onGetBoats(){
+  onGetBoats() {
     this.props.onGetBoats();
   }
 
@@ -58,6 +63,10 @@ class AddTrip_U extends Component {
 
   onRemoveUser(id) {
     this.props.onRemoveUser(id);
+  }
+
+  onTripError() {
+    this.props.onTripError();
   }
 
   render() {
@@ -163,7 +172,8 @@ const mapActionsToProps = {
   onGetUsers: getUsers_Users,
   onSelectUser: selectUser,
   onRemoveUser: removeUser,
-  onGetBoats: getBoatsUser
+  onGetBoats: getBoatsUser,
+  onTripError: tripError
 };
 
 export default connect(mapStatetoProps, mapActionsToProps)(AddTrip_U);

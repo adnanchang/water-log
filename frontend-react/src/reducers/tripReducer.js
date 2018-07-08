@@ -1,4 +1,4 @@
-import { CREATE_TRIP, SEND_ERROR, GET_TRIPS, EDIT_TRIP, SEND_DETAILS, SIGN_IN, SIGN_OUT } from "../actions/tripActions";
+import { CREATE_TRIP, SEND_ERROR, GET_TRIPS, EDIT_TRIP, SEND_DETAILS, SIGN_IN, SIGN_OUT, TRIP_ERROR } from "../actions/tripActions";
 
 const initialState = () => ({
     trips: [],
@@ -62,6 +62,12 @@ export default function tripReducerState(
             return {
                 ...state,
                 trips: payload
+            }
+        }
+        case TRIP_ERROR: {
+            return {
+                ...state,
+                err: payload
             }
         }
         default: {

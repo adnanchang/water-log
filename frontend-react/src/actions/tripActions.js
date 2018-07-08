@@ -6,6 +6,7 @@ export const DELETE_TRIP = "DELETE_TRIP";
 export const SEND_DETAILS = "SEND_DETAILS";
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_OUT = "SIGN_OUT";
+export const TRIP_ERROR = "TRIP_ERROR";
 
 export function createTrip(formData) {
   return dispatch => {
@@ -176,5 +177,13 @@ export function signOut(id) {
           });
         }
       });
+  };
+}
+
+export function tripError() {
+  var error = "Start time must be before end time"
+  return {
+    type: TRIP_ERROR,
+    payload: error
   };
 }

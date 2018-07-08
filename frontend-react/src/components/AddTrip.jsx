@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { createTrip } from "../actions/tripActions";
+import { createTrip, tripError } from "../actions/tripActions";
 import { getUsers, selectUser, removeUser } from "../actions/userActions";
 
 class AddTrip extends Component {
@@ -19,17 +19,21 @@ class AddTrip extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const data = {
-      boat: this.getBoat.value,
-      startTime: this.getStartTime.value,
-      endTime: this.getEndTime.value,
-      selectedUsers: this.props.selectedUsers
-    };
-    this.getBoat.selectedIndex = 0;
-    this.getStartTime.value = "";
-    this.getEndTime.value = "";
-    this.getUsers.selectedIndex = 0;
-    this.props.handleSubmit(data);
+    if (
+      Date.parse(this.getStartTime.value) < Date.parse(this.getEndTime.value)
+    ) {
+      const data = {
+        boat: this.getBoat.value,
+        startTime: this.getStartTime.value,
+        endTime: this.getEndTime.value,
+        selectedUsers: this.props.selectedUsers
+      };
+      this.getBoat.selectedIndex = 0;
+      this.getStartTime.value = "";
+      this.getEndTime.value = "";
+      this.getUsers.selectedIndex = 0;
+      this.props.handleSubmit(data);
+    } else this.props.onTripError();
   }
 
   onGetUsers() {
@@ -47,6 +51,10 @@ class AddTrip extends Component {
     this.props.onRemoveUser(id);
   }
 
+  onTripError() {
+    this.props.onTripError();
+  }
+
   render() {
     return (
       <div className="col-lg-6">
@@ -59,8 +67,8 @@ class AddTrip extends Component {
             {this.props.err}
           </div>
         ) : (
-            <div />
-          )}
+          <div />
+        )}
 
         <form onSubmit={this.handleSubmit}>
           <legend>Add Trip</legend>
@@ -81,13 +89,22 @@ class AddTrip extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="">Start Time</label>
-              <input id="startTime" type="datetime-local" className="form-control" ref={input => (this.getStartTime = input)} />
+              <input
+                id="startTime"
+                type="datetime-local"
+                className="form-control"
+                ref={input => (this.getStartTime = input)}
+              />
             </div>
-
 
             <div className="form-group">
               <label htmlFor="">End Time</label>
-              <input id="endTime" type="datetime-local" className="form-control" ref={input => (this.getEndTime = input)} />
+              <input
+                id="endTime"
+                type="datetime-local"
+                className="form-control"
+                ref={input => (this.getEndTime = input)}
+              />
             </div>
 
             <div className="form-group">
@@ -111,19 +128,21 @@ class AddTrip extends Component {
               {this.props.selectedUsers.length == 0 ? (
                 <p>No Users selected for the trip</p>
               ) : (
-                  <ul className="list-group">
-                    {this.props.selectedUsers.map(user => (
-                      <li key={user.id} className="list-group-item d-flex justify-content-between align-items-center">
-                        {user.username}
-                        <a onClick={() => this.props.onRemoveUser(user.id)}>
-                          <i className="fas fa-times"></i>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                <ul className="list-group">
+                  {this.props.selectedUsers.map(user => (
+                    <li
+                      key={user.id}
+                      className="list-group-item d-flex justify-content-between align-items-center"
+                    >
+                      {user.username}
+                      <a onClick={() => this.props.onRemoveUser(user.id)}>
+                        <i className="fas fa-times" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-
           </fieldset>
           <input type="submit" value="Create" className="btn btn-primary" />
         </form>
@@ -145,7 +164,11 @@ const mapActionsToProps = {
   handleSubmit: createTrip,
   onGetUsers: getUsers,
   onSelectUser: selectUser,
-  onRemoveUser: removeUser
+  onRemoveUser: removeUser,
+  onTripError: tripError
 };
 
-export default connect(mapStatetoProps, mapActionsToProps)(AddTrip);
+export default connect(
+  mapStatetoProps,
+  mapActionsToProps
+)(AddTrip);
