@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import moment from "moment";
-import { getBoats } from "../actions/boatActions";
 import { editTrip, getTripsUser, deleteTrip, viewDetails, signIn, signOut } from "../actions/tripActions";
+import { getBoats } from "../actions/boatActions";
 
 class Trips_U extends Component {
 
@@ -21,10 +21,13 @@ class Trips_U extends Component {
     );
 
     console.log(detail);
-    if (detail.signedInAt != null)
-      return true;
-    else
-      return false;
+    if (detail != null) {
+      if (detail.signedInAt != null)
+        return true;
+      else
+        return false;
+    }
+
   }
 
   isUserDoneWithTrip(trip) {
@@ -33,10 +36,12 @@ class Trips_U extends Component {
     );
     console.log(trip);
     console.log(detail);
-    if (detail.signedInAt != null && detail.signedOutAt != null)
-      return true;
-    else
-      return false;
+    if (detail != null) {
+      if (detail.signedInAt != null && detail.signedOutAt != null)
+        return true;
+      else
+        return false;
+    }
   }
 
   getDetail(trip) {
@@ -76,7 +81,7 @@ class Trips_U extends Component {
                     />
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     {this.isUserDoneWithTrip(trip) ? (
-                      <input type="button" disabled="true" value="Trip Over" className="btn btn-info"/>
+                      <input type="button" disabled="true" value="Trip Over" className="btn btn-info" />
                     ) : [
                         (!this.isUserSignedIn(trip) ? (
                           <input
